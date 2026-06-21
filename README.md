@@ -73,10 +73,23 @@ tests/test_game_logic.py::test_too_high_and_too_low_penalize_equally PASSED
 tests/test_game_logic.py::test_check_guess_string_secret_equality PASSED
 tests/test_game_logic.py::test_check_guess_string_secret_too_high PASSED
 tests/test_game_logic.py::test_check_guess_string_secret_too_low PASSED
+tests/test_game_logic.py::test_parse_guess_negative_number PASSED
+tests/test_game_logic.py::test_parse_guess_extremely_large_number PASSED
+tests/test_game_logic.py::test_parse_guess_zero PASSED
+tests/test_game_logic.py::test_parse_guess_whitespace PASSED
+tests/test_game_logic.py::test_parse_guess_special_characters PASSED
+tests/test_game_logic.py::test_parse_guess_negative_decimal PASSED
+tests/test_game_logic.py::test_check_guess_boundary_low PASSED
+tests/test_game_logic.py::test_check_guess_boundary_high PASSED
+tests/test_game_logic.py::test_check_guess_negative_guess PASSED
+tests/test_game_logic.py::test_update_score_does_not_go_negative PASSED
+tests/test_game_logic.py::test_get_range_for_unknown_difficulty PASSED
 
-========================= 22 passed in 0.01s =========================
+========================= 33 passed in 0.01s =========================
 ```
 
 ## 🚀 Stretch Features
 
-- [ ] [If you choose to complete Challenge 4, describe the Enhanced UI changes here — a screenshot is optional]
+- [x] **Challenge 1: Advanced Edge-Case Testing** — Added 11 edge-case pytest tests covering negative numbers, extremely large values, zero, whitespace, special characters, negative decimals, boundary guesses (1 and 100), and unknown difficulty fallback. All 33 tests pass.
+- [x] **Challenge 3: Professional Documentation and Linting** — Added Google-style docstrings to all functions in `logic_utils.py`, added a module docstring, return type annotations, and replaced bare `except Exception` with specific `except (ValueError, OverflowError)`. Imported `from __future__ import annotations` for forward-compatible type hints.
+- [x] **Challenge 4: Enhanced Game UI** — Added Hot/Cold proximity indicators to guess feedback in `app.py` (lines 164-174): guesses within 3 show "Burning hot", within 10 show "Warm", within 25 show "Cold", and beyond 25 show "Freezing". Also added a Guess History summary table (lines 189-204) that displays each guess with its proximity rating.

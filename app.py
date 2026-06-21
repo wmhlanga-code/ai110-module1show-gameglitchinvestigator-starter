@@ -162,7 +162,17 @@ if submit:
         outcome, message = check_guess(guess_int, secret)
 
         if show_hint:
-            st.warning(message)
+            diff = abs(guess_int - st.session_state.secret)
+            if outcome == "Win":
+                st.success(message)
+            elif diff <= 3:
+                st.error("🔥 Burning hot! " + message)
+            elif diff <= 10:
+                st.warning("🌡️ Warm! " + message)
+            elif diff <= 25:
+                st.info("❄️ Cold. " + message)
+            else:
+                st.info("🧊 Freezing! " + message)
 
         st.session_state.score = update_score(
             current_score=st.session_state.score,
@@ -185,6 +195,28 @@ if submit:
                     f"The secret was {st.session_state.secret}. "
                     f"Score: {st.session_state.score}"
                 )
+
+if st.session_state.history:
+    st.divider()
+    st.subheader("📊 Guess History")
+    history_data = []
+    for i, g in enumerate(st.session_state.history, 1):
+        if isinstance(g, int):
+            diff = abs(g - st.session_state.secret)
+            if diff == 0:
+                proximity = "🎯 Exact"
+            elif diff <= 3:
+                proximity = "🔥 Hot"
+            elif diff <= 10:
+                proximity = "🌡️ Warm"
+            elif diff <= 25:
+                proximity = "❄️ Cold"
+            else:
+                proximity = "🧊 Freezing"
+            history_data.append({"#": i, "Guess": g, "Proximity": proximity})
+        else:
+            history_data.append({"#": i, "Guess": g, "Proximity": "⚠️ Invalid"})
+    st.table(history_data)
 
 st.divider()
 st.caption("Built by an AI that claims this code is production-ready.")
